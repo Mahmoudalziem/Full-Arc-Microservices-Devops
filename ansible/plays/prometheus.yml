@@ -1,0 +1,6 @@
+---
+- name: Install Prometheus && Grafana
+  hosts: elk
+  remote_user: root
+  roles:
+    - roles/prometheus

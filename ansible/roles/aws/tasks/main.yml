@@ -1,0 +1,24 @@
+- name: Update System Dependanciness
+  command: apt update -y
+
+- name: Install Aws Cli
+  apt:
+    name: "{{ item }}"
+    state: present 
+  loop:
+    - awscli
+
+- name: Configure AWS.
+  shell: aws configure set {{ item.key }} {{ item.value }}
+  no_log: True
+  with_dict:
+    aws_access_key_id: "{{ aws_access_key_id }}"
+    aws_secret_access_key: "{{ aws_secret_access_key }}"
+    region: "{{ aws_region }}"
+    format: "{{ aws_format }}"
+  become_user: "{{ aws_system_user }}"
+  changed_when: false
+
+
+- name: Configure Eks.
+  command: aws eks update-kubeconfig --region {{ aws_region }} --name {{ cluster_name }}

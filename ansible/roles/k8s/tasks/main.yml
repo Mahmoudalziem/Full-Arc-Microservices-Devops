@@ -1,0 +1,39 @@
+---
+- name: Install Docker Module && Pyhelm for Python
+  pip:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - docker
+    - pyhelm
+    - kubernetes
+
+# - name: Install K8S for Python
+#   pip:
+#     name: kubernetes
+#     version: "11.0.0"
+
+- name: Download kubectl
+  get_url:
+    url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ kubectl_os }}/{{ kubectl_arch }}/kubectl"
+    dest: "{{ kubectl_tmp_directory }}"
+  tags:
+    - kubectl
+
+- name: Install kubectl
+  command: install -o root -g root -m 0755 /kubectl /usr/local/bin/kubectl
+
+- name: Download Helm
+  get_url:
+    url: "https://git.io/get_helm.sh"
+    dest: "{{ helm_tmp_directory }}"
+  tags:
+    - helm
+
+- name: Change Helm Permission
+  file:
+    path: /helm.sh
+    mode: 0755
+
+- name: Install Helm
+  shell: cat /helm.sh | bash -s -- --version {{ helm_version }}

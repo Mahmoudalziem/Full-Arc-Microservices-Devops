@@ -1,0 +1,6 @@
+---
+- name: print-dashboard
+  debug:
+    msg: 
+      - "Grafana Dashboard => {{ grafana.stdout }}"
+      - " Port => 9000"

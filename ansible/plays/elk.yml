@@ -1,0 +1,6 @@
+---
+- name: Install Elk  => (ElasticSearch - LogStash - Kibana)
+  remote_user: root
+  hosts: elk
+  roles:
+    - roles/elk

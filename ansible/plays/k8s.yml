@@ -1,0 +1,6 @@
+---
+- name: install kubernates
+  remote_user: root
+  hosts: elk
+  roles:
+    - roles/k8s

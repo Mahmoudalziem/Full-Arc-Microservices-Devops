@@ -1,0 +1,6 @@
+---
+- name: Jenknis Package
+  remote_user: root
+  hosts: elk
+  roles:
+    - roles/jenkins

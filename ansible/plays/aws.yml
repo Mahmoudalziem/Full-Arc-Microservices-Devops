@@ -1,0 +1,6 @@
+---
+- name: Install Aws Cli And Configure
+  remote_user: root
+  hosts: elk
+  roles:
+    - roles/aws

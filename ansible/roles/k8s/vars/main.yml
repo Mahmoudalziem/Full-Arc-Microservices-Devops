@@ -1,0 +1,12 @@
+---
+APT_KEY_URL: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+APT_REPO_URL: deb https://download.docker.com/linux/{{ ansible_distribution | lower }} focal stable
+kubectl_version: "1.23.6"
+kubectl_tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/',true) }}"
+kubectl_owner: "root"
+kubectl_group: "root"
+kubectl_binary_mode: "0755"
+kubectl_os: "linux"
+kubectl_arch: "amd64"
+helm_version: "v3.8.2"
+helm_tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/helm.sh',true) }}"

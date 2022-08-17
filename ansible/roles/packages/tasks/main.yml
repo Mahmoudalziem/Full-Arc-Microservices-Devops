@@ -1,0 +1,15 @@
+---
+- name: install system packages
+  apt:
+    name:  "{{ item }}"
+    state: latest
+    update_cache: true
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - default-jdk
+    - software-properties-common
+    - python3-pip
+    - python3-setuptools
+  notify: success-packages

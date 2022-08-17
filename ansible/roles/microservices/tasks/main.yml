@@ -1,0 +1,31 @@
+---
+- name: Pull Microservices Github
+  git:
+    repo: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
+    dest: application
+    version: microservices
+    clone: yes
+
+- name: Get files on remote machine
+  find:
+    paths: application
+    patterns: "*.yaml"
+  register: jenkins_files
+
+- name: Install Microservices
+  k8s:
+    src: "{{ item }}"
+  loop: "{{ jenkins_files|json_query('files[].path') }}"
+
+- name: get Microservices Dasboard url
+  shell: if [ $(kubectl get svc application -n application --output jsonpath='{.status.loadBalancer.ingress[0]}') ]; then exit 0; else exit 1; fi;
+  register: wait_for_ext_ip
+  until: wait_for_ext_ip.rc == 0
+  retries: 10
+  delay: 5
+
+- name: get Microservices Dasboard url
+  command: kubectl get svc application -n application --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+  register: application
+  when: wait_for_ext_ip.rc == 0
+  notify: print-dashboard

@@ -1,0 +1,35 @@
+---
+- name: Pull Elk Github
+  git:
+    repo: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
+    dest: elk
+    version: elk
+    clone: yes
+
+- name: Install Elk
+  kubernetes.core.helm:
+    name:  "{{ item.name }}"
+    chart_ref: "{{ item.ref }}"
+    release_namespace: default
+  loop:
+    - name: filebeat
+      ref: elk/filebeat
+    - name: logstash
+      ref: elk/logstash
+    - name: elasticsearch
+      ref: elk/elasticsearch
+    - name: kibana
+      ref: elk/kibana
+
+- name: get Kibana Dasboard url
+  shell: if [ $(kubectl get services kibana-kibana -n default --output jsonpath='{.status.loadBalancer.ingress[0]}') ]; then exit 0; else exit 1; fi;
+  register: wait_for_ext_ip
+  until: wait_for_ext_ip.rc == 0
+  retries: 10
+  delay: 5
+
+- name: get Kibana Dasboard url
+  command: kubectl get svc kibana-kibana --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+  register: kibana
+  when: wait_for_ext_ip.rc == 0
+  notify: print-dashboard

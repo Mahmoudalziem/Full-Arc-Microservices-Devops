@@ -1,0 +1,11 @@
+---
+- name: print-dashboard
+  debug:
+    msg: 
+      - "Grafana Dashboard => {{ jenkins.stdout }}"
+      - " Port => 8080"
+
+- name: print-password
+  debug:
+    msg: 
+      - "Grafana Password => {{ password.stdout }}"

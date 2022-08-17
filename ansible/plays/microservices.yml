@@ -1,0 +1,6 @@
+---
+- name: install Application
+  remote_user: root
+  hosts: elk
+  roles:
+    - roles/microservices

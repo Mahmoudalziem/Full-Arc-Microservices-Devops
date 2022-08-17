@@ -1,0 +1,6 @@
+---
+- name: print-dashboard
+  debug:
+    msg: 
+      - "Kibana Dashboard => {{ kibana.stdout }}"
+      - " Port => 3000 "
