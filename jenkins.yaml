@@ -35,10 +35,10 @@ spec:
               name: jenkins-home
             - mountPath: /var/run/docker.sock
               name: docker-socket
-      volumes:
-        - name: jenkins-home
-          hostPath:
-            path: /jenkins_homes
-        - name: docker-socket
-          hostPath:
-            path: /var/run/docker.sock
+volumes:
+  - name: jenkins-home
+    hostPath:
+      path: /jenkins_homes
+  - name: docker-socket
+    hostPath:
+      path: /var/run/docker.sock
