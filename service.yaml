@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: jenkins
-  name: jenknis
+  name: jenkins
 spec:
   type: LoadBalancer
   selector:
