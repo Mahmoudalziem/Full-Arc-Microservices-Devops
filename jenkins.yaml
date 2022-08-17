@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+  metadata:
+  namespace: jenkins
+  labels:
+    app: jenkins
+  name: jenkins
+spec:
+  serviceName: "jenknis"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+      - image: jenkins/jenkins:lts-jdk11
+        name: jenkins
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /login
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 2
+          timeoutSeconds: 5
