@@ -37,14 +37,14 @@ spec:
             successThreshold: 2
             timeoutSeconds: 5
           volumeMounts:
-            - mountPath: /var/jenkins_home
-              name: jenkins-home
+            # - mountPath: /var/jenkins_home
+            #   name: jenkins-home
             - mountPath: /var/run/docker.sock
               name: docker-socket
       volumes:
-        - name: jenkins-home
-          hostPath:
-            path: /jenkins_home
+        # - name: jenkins-home
+        #   hostPath:
+        #     path: /jenkins_home
         - name: docker-socket
           hostPath:
             path: /var/run/docker.sock
