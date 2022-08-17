@@ -1,5 +1,5 @@
 ---
 
-- Name: Success
+- name: success
   debug:
     msg: "Success Configure Aws"

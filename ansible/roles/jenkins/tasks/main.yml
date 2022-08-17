@@ -26,7 +26,7 @@
 #### Check Jenkins Accessability
 
 - name: Check Jenkins Accessability
-  shell: if [ $("{{ JENKINS_ACCESS }}") ]; then exit 0; else exit 1; fi;
+  shell: if [ $({{ JENKINS_ACCESS }}) ]; then exit 0; else exit 1; fi;
   register: wait_for_ext_ip
   until: wait_for_ext_ip.rc == 0
   retries: 10

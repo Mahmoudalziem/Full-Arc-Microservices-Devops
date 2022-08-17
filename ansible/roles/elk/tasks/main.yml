@@ -29,7 +29,7 @@
 #### Check Kibana Accessability
 
 - name: Check Kibana Accessability
-  shell: if [ $("{{ KIBANA_ACCESS }}") ]; then exit 0; else exit 1; fi;
+  shell: if [ $({{ KIBANA_ACCESS }}) ]; then exit 0; else exit 1; fi;
   register: wait_for_ext_ip
   until: wait_for_ext_ip.rc == 0
   retries: 10

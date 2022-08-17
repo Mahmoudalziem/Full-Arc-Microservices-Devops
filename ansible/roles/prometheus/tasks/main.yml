@@ -2,7 +2,7 @@
 
 #### Pull JENKINS (CI/CD) Github Repo
 
-- name: Pull Jenkins Github
+- name: Pull Prometheus Github
   git:
     repo: "{{ GITHUB_REPO }}"
     dest: "{{ DIRECTORY }}"
@@ -14,19 +14,20 @@
 - find:
     paths: "{{ DIRECTORY }}"
     patterns: "*.yaml"
-  register: prometheus_files
+    recurse: yes
+  register: prometheus_files  
 
 #### Install Pro => (CI/CD)
 
 - name: Install Prometheus => (Metrics Server) && Grafana => (Dasboard)
   k8s:
     src: "{{ item }}"
-  loop: "{{ prometheus_files.files | sort(attribute='setup') | json_query('[].path') }}"
+  loop: "{{ prometheus_files.files | sort(attribute='path')|reverse|json_query('[].path') }}"
   
 #### Check Grafana Accessability
 
 - name: Check Grafana Accessability
-  shell: if [ $("{{ GRAFANA_ACCESS }}") ]; then exit 0; else exit 1; fi;
+  shell: if [ $({{ GRAFANA_ACCESS }}) ]; then exit 0; else exit 1; fi;
   register: wait_for_ext_ip
   until: wait_for_ext_ip.rc == 0
   retries: 10
