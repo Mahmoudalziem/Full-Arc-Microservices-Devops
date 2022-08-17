@@ -1,2 +1,5 @@
 ---
-# handlers file for aws
+
+- Name: Success
+  debug:
+    msg: "Success Configure Aws"

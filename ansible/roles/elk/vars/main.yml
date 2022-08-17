@@ -1,2 +1,7 @@
 ---
-# vars file for elk
+
+BRANCH: elk
+DIRECTORY: elk
+GITHUB_REPO: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
+KIBANA_ACCESS: kubectl get svc kibana-kibana --output jsonpath='{.status.loadBalancer.ingress[0]}'
+KIBANA_ACCESS_HOSTNAME: kubectl get svc kibana-kibana --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'

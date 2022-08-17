@@ -1,5 +1,11 @@
-- name: Update System Dependanciness
+---
+
+#### Update Operating System Dependencies
+
+- name: Update system Dependencies
   command: apt update -y
+
+#### Install Aws Command Line
 
 - name: Install Aws Cli
   apt:
@@ -8,17 +14,25 @@
   loop:
     - awscli
 
+#### Cofigure Aws Programmtic Access
+
 - name: Configure AWS.
-  shell: aws configure set {{ item.key }} {{ item.value }}
+  shell: aws configure set {{ item.NAME }} {{ item.VALUE }}
   no_log: True
-  with_dict:
-    aws_access_key_id: "{{ aws_access_key_id }}"
-    aws_secret_access_key: "{{ aws_secret_access_key }}"
-    region: "{{ aws_region }}"
-    format: "{{ aws_format }}"
-  become_user: "{{ aws_system_user }}"
+  loop:
+    - NAME: aws_access_key_id
+      VALUE: "{{ ACCESS_KEY }}"
+    - NAME: aws_secret_access_key
+      VALUE: "{{ SECRET_ACCESS_KEY }}"
+    - NAME: region
+      VALUE: "{{ REGION }}"
+    - NAME: format
+      VALUE: "{{ FORMAT }}"
+  become_user: "{{ SYSTEM_USER }}"
   changed_when: false
 
+#### Cofigure Aws Access EKS => (Elastic Kubernetes Service)
 
 - name: Configure Eks.
-  command: aws eks update-kubeconfig --region {{ aws_region }} --name {{ cluster_name }}
+  command: aws eks update-kubeconfig --region {{ REGION }} --name {{ CLUSTER_NAME }}
+  notify: success

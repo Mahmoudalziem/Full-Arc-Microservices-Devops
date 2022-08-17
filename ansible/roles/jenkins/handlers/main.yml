@@ -1,11 +1,16 @@
 ---
+
+#### Print Jenkins Accessability Dashboard
+
 - name: print-dashboard
   debug:
     msg: 
-      - "Grafana Dashboard => {{ jenkins.stdout }}"
+      - "Jenkins Dashboard => {{ jenkins.stdout }}"
       - " Port => 8080"
+
+#### Print Jenkins Password Dashboard
 
 - name: print-password
   debug:
     msg: 
-      - "Grafana Password => {{ password.stdout }}"
+      - "Jenkins Password => {{ password.stdout }}"

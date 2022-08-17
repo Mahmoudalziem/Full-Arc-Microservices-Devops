@@ -1,35 +1,44 @@
 ---
-- name: Pull Elk Github
+
+#### Pull Elk Github Repo
+
+- name: Pull ELK => (ELASTIC STACK) Github Repo
   git:
-    repo: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
-    dest: elk
-    version: elk
+    repo: "{{ GITHUB_REPO }}"
+    dest: "{{ DIRECTORY }}"
+    version: "{{ BRANCH }}"
     clone: yes
 
-- name: Install Elk
+#### Install Elk Github Repo
+
+- name: Install ELK => (ELASTIC STACK)
   kubernetes.core.helm:
-    name:  "{{ item.name }}"
-    chart_ref: "{{ item.ref }}"
+    name:  "{{ item.NAME }}"
+    chart_ref: "{{ item.REF }}"
     release_namespace: default
   loop:
-    - name: filebeat
-      ref: elk/filebeat
-    - name: logstash
-      ref: elk/logstash
-    - name: elasticsearch
-      ref: elk/elasticsearch
-    - name: kibana
-      ref: elk/kibana
+    - NAME: filebeat
+      REF: elk/filebeat
+    - NAME: logstash
+      REF: elk/logstash
+    - NAME: elasticsearch
+      REF: elk/elasticsearch
+    - NAME: kibana
+      REF: elk/kibana
 
-- name: get Kibana Dasboard url
-  shell: if [ $(kubectl get services kibana-kibana -n default --output jsonpath='{.status.loadBalancer.ingress[0]}') ]; then exit 0; else exit 1; fi;
+#### Check Kibana Accessability
+
+- name: Check Kibana Accessability
+  shell: if [ $("{{ KIBANA_ACCESS }}") ]; then exit 0; else exit 1; fi;
   register: wait_for_ext_ip
   until: wait_for_ext_ip.rc == 0
   retries: 10
   delay: 5
 
-- name: get Kibana Dasboard url
-  command: kubectl get svc kibana-kibana --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+#### Get Kibana Accessability Dashboard
+
+- name: Get Kibana Accessability Dashboard
+  command: "{{ KIBANA_ACCESS_HOSTNAME }}"
   register: kibana
   when: wait_for_ext_ip.rc == 0
   notify: print-dashboard

@@ -1,39 +1,47 @@
 ---
-- name: Install Docker Module && Pyhelm for Python
+
+#### Install Docker And Kubernetes Modules
+
+- name: Install Docker And Kubernetes Modules
   pip:
     name: "{{ item }}"
     state: latest
   loop:
     - docker
-    - pyhelm
     - kubernetes
+    - pyhelm
 
-# - name: Install K8S for Python
-#   pip:
-#     name: kubernetes
-#     version: "11.0.0"
+#### Download Kubectl
 
-- name: Download kubectl
+- name: Download kubectl => ( Microservices Manager )
   get_url:
-    url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ kubectl_os }}/{{ kubectl_arch }}/kubectl"
-    dest: "{{ kubectl_tmp_directory }}"
+    url: "{{ KUBECTL_URL }}"
+    dest: "{{ DIRECTORY_KUBECTL }}"
   tags:
     - kubectl
 
-- name: Install kubectl
-  command: install -o root -g root -m 0755 /kubectl /usr/local/bin/kubectl
+#### Install Kubectl 
 
-- name: Download Helm
+- name: Install kubectl => ( Microservices Manager )
+  command: install -o {{ KUBECTL_OWNER }} -g {{ KUBECTL_GROUP }} -m {{ KUBECTL_BINARY_MODE }} /kubectl /usr/local/bin/kubectl
+
+#### Download Helm => ( Package Manager => K8S)
+
+- name: Download Helm => ( Package Manager => K8S)
   get_url:
-    url: "https://git.io/get_helm.sh"
-    dest: "{{ helm_tmp_directory }}"
+    url: "{{ HELM_URL }}"
+    dest: "{{ DIRECTORY_HELM }}"
   tags:
     - helm
 
-- name: Change Helm Permission
-  file:
+#### Change Helm Permissions => ( Package Manager => K8S)
+
+- file:
     path: /helm.sh
-    mode: 0755
+    mode: "{{ KUBECTL_BINARY_MODE }}"
+
+#### Install Helm => ( Package Manager => K8S)
 
 - name: Install Helm
-  shell: cat /helm.sh | bash -s -- --version {{ helm_version }}
+  shell: cat /helm.sh | bash -s -- --version {{ HELM_VERSION }}
+  notify: success

@@ -1,38 +1,48 @@
 ---
+
+#### Pull JENKINS (CI/CD) Github Repo
+
 - name: Pull Jenkins Github
   git:
-    repo: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
-    dest: jenkins
-    version: jenkins
+    repo: "{{ GITHUB_REPO }}"
+    dest: "{{ DIRECTORY }}"
+    version: "{{ BRANCH }}"
     clone: yes
 
+#### Retrive Jenkins Yaml File
 
-- name: Get files on remote machine
-  find:
-    paths: jenkins
+- find:
+    paths: "{{ DIRECTORY }}"
     patterns: "*.yaml"
   register: jenkins_files
+
+#### Install Jenkins => (CI/CD)
 
 - name: Install Jenknis
   k8s:
     src: "{{ item }}"
   loop: "{{ jenkins_files|json_query('files[].path') }}"
 
-- name: get Jenknis Dasboard url
-  shell: if [ $(kubectl get svc jenkins -n jenkins --output jsonpath='{.status.loadBalancer.ingress[0]}') ]; then exit 0; else exit 1; fi;
+#### Check Jenkins Accessability
+
+- name: Check Jenkins Accessability
+  shell: if [ $("{{ JENKINS_ACCESS }}") ]; then exit 0; else exit 1; fi;
   register: wait_for_ext_ip
   until: wait_for_ext_ip.rc == 0
   retries: 10
   delay: 5
 
-- name: get jenkins Dasboard url
-  command: kubectl get svc jenkins -n jenkins --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+#### Get Jenkins Accessability Dashboard
+
+- name: Get Jenkins Accessability Dashboard
+  command: "{{ JENKINS_ACCESS_HOSTNAME }}"
   register: jenkins
   when: wait_for_ext_ip.rc == 0
   notify: print-dashboard
 
+#### Get Jenkins Password Dashboard
 
-- name: get jenkins init password
-  command: kubectl exec -u 0 -n jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
+- name: Get Jenkins Password Dashboard
+  command: "{{ JENKINS_PASSWORD }}"
   register: password
   notify: print-password

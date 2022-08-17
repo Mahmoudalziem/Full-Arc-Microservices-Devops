@@ -1,7 +1,7 @@
 ---
-aws_access_key_id : AKIA4MCLM6QW3SP6X4OQ
-aws_secret_access_key: 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
-aws_region: us-east-2
-aws_format: json
-aws_system_user: azima
-cluster_name: elk
+FORMAT: json
+CLUSTER_NAME: elk
+REGION: us-east-2
+SYSTEM_USER: azima
+ACCESS_KEY: AKIA4MCLM6QWXQB7Y444
+SECRET_ACCESS_KEY: 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

@@ -1,12 +1,18 @@
 ---
-APT_KEY_URL: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
-APT_REPO_URL: deb https://download.docker.com/linux/{{ ansible_distribution | lower }} focal stable
-kubectl_version: "1.23.6"
-kubectl_tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/',true) }}"
-kubectl_owner: "root"
-kubectl_group: "root"
-kubectl_binary_mode: "0755"
-kubectl_os: "linux"
-kubectl_arch: "amd64"
-helm_version: "v3.8.2"
-helm_tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/helm.sh',true) }}"
+
+##### Kubernetes
+
+KUBECTL_OS: "linux"
+KUBECTL_ARCH: "amd64"
+KUBECTL_OWNER: "root"
+KUBECTL_GROUP: "root"
+KUBECTL_VERSION: "1.23.6"
+KUBECTL_BINARY_MODE: "0755"
+DIRECTORY_KUBECTL: "{{ lookup('env', 'TMPDIR') | default('/',true) }}"
+KUBECTL_URL: https://dl.k8s.io/release/v{{ KUBECTL_VERSION }}/bin/{{ KUBECTL_OS }}/{{ KUBECTL_ARCH }}/kubectl
+
+##### Helm
+
+HELM_VERSION: "v3.8.2"
+HELM_URL: https://git.io/get_helm.sh
+DIRECTORY_HELM: "{{ lookup('env', 'TMPDIR') | default('/helm.sh',true) }}"

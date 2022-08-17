@@ -1,32 +1,41 @@
 ---
-- name: Pull Prometheus Github
+
+#### Pull JENKINS (CI/CD) Github Repo
+
+- name: Pull Jenkins Github
   git:
-    repo: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
-    dest: prometheus
-    version: prometheus
+    repo: "{{ GITHUB_REPO }}"
+    dest: "{{ DIRECTORY }}"
+    version: "{{ BRANCH }}"
     clone: yes
 
-- name: Get files on remote machine
-  find:
-    paths: prometheus
+#### Retrive Jenkins Yaml File
+
+- find:
+    paths: "{{ DIRECTORY }}"
     patterns: "*.yaml"
-    recurse: yes
   register: prometheus_files
 
-- name: Install Prometheus && Grafana
+#### Install Pro => (CI/CD)
+
+- name: Install Prometheus => (Metrics Server) && Grafana => (Dasboard)
   k8s:
     src: "{{ item }}"
-  loop: "{{ prometheus_files.files|json_query('[].path') }}"
+  loop: "{{ prometheus_files.files | sort(attribute='setup') | json_query('[].path') }}"
+  
+#### Check Grafana Accessability
 
-- name: get Grafana Dasboard url
-  shell: if [ $(kubectl get services grafana -n monitoring --output jsonpath='{.status.loadBalancer.ingress[0]}') ]; then exit 0; else exit 1; fi;
+- name: Check Grafana Accessability
+  shell: if [ $("{{ GRAFANA_ACCESS }}") ]; then exit 0; else exit 1; fi;
   register: wait_for_ext_ip
   until: wait_for_ext_ip.rc == 0
   retries: 10
   delay: 5
 
-- name: get Grafana Dasboard url
-  command: kubectl get svc grafana -n monitoring --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+#### Get Jenkins Accessability Dashboard
+
+- name: Get Jenkins Accessability Dashboard
+  command: "{{ GRAFANA_ACCESS_HOSTNAME }}"
   register: grafana
   when: wait_for_ext_ip.rc == 0
   notify: print-dashboard
