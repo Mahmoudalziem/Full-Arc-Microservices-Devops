@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
+  name: jenkins
   namespace: jenkins
   labels:
     app: jenkins
-  name: jenkins
 spec:
-  serviceName: "jenkins"
   replicas: 1
   selector:
     matchLabels:
@@ -17,8 +16,12 @@ spec:
         app: jenkins
     spec:
       containers:
-        - image: jenkins/jenkins:lts-jdk11
-          name: jenkins
+        - name: jenkins
+          image: jenkins/jenkins:lts-jdk11
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -35,10 +38,10 @@ spec:
               name: jenkins-home
             - mountPath: /var/run/docker.sock
               name: docker-socket
-volumes:
-  - name: jenkins-home
-    hostPath:
-      path: /jenkins_homes
-  - name: docker-socket
-    hostPath:
-      path: /var/run/docker.sock
+      volumes:
+        - name: jenkins-home
+          hostPath:
+            path: /jenkins_home
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
