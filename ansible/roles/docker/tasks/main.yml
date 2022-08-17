@@ -1,0 +1,24 @@
+---
+
+#### Add Docker GPG apt Key
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: "{{ APT_KEY_URL }}"
+    state: present
+
+#### Add Docker Repository
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: "{{ APT_REPO_URL }}"
+    state: present
+
+#### Install Docker-CE
+
+- name: Install Docker-CE
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: True
+  notify: docker-successs

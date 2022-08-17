@@ -1,0 +1,7 @@
+---
+
+#### Print Success Install Docker
+
+- name: docker-success
+  debug:
+    msg: "Success Install docker"

@@ -1,0 +1,6 @@
+---
+- name: Install Docker
+  remote_user: root
+  hosts: elk
+  roles:
+    - roles/docker

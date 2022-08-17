@@ -1,8 +1,9 @@
 ---
-- import_playbook: plays/packages.yml
-- import_playbook: plays/k8s.yml
-- import_playbook: plays/aws.yml
-- import_playbook: plays/elk.yml
-- import_playbook: plays/prometheus.yml
-- import_playbook: plays/jenkins.yml
-- import_playbook: plays/microservices.yml
+# - import_playbook: plays/packages.yml
+# - import_playbook: plays/k8s.yml
+# - import_playbook: plays/aws.yml
+- import_playbook: plays/docker.yml
+# - import_playbook: plays/elk.yml
+# - import_playbook: plays/prometheus.yml
+# - import_playbook: plays/jenkins.yml
+# - import_playbook: plays/microservices.yml
