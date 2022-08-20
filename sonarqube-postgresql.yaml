@@ -110,6 +110,9 @@ spec:
         - emptyDir:
             medium: Memory
           name: dshm
+        - emptyDir:
+            medium: Memory
+          name: data
   updateStrategy:
     type: RollingUpdate
   volumeClaimTemplates:
@@ -118,6 +121,7 @@ spec:
       metadata:
         name: data
       spec:
+        storageClassName: gp2
         accessModes:
           - ReadWriteOnce
         resources:
