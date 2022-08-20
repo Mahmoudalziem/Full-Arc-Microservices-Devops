@@ -1,32 +1,82 @@
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   namespace: jenkins
+#   labels:
+#     app: jenkins
+#   name: jenkins
+# spec:
+#   serviceName: jenkins
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: jenkins
+#   template:
+#     metadata:
+#       labels:
+#         app: jenkins
+#     spec:
+#       containers:
+#         - image: azima/jenkins-docker:latest
+#           name: jenkins
+#           ports:
+#             - containerPort: 8080
+#           readinessProbe:
+#             httpGet:
+#               path: /login
+#               port: 8080
+#               scheme: HTTP
+#             failureThreshold: 5
+#             periodSeconds: 10
+#             successThreshold: 2
+#             timeoutSeconds: 5
+
+---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
+  name: jenkins
   namespace: jenkins
   labels:
     app: jenkins
-  name: jenkins
 spec:
-  serviceName: jenkins
-  replicas: 1
   selector:
     matchLabels:
       app: jenkins
+  replicas: 1
   template:
     metadata:
+      name: jenkins
+      namespace: jenkins
       labels:
         app: jenkins
     spec:
       containers:
-        - image: azima/jenkins-docker:latest
-          name: jenkins
-          ports:
-            - containerPort: 8080
+        - name: jenkins
+          image: azima/jenkins-docker:latest
+          resources:
+            limits:
+              cpu: 300m
+              memory: 1Gi
           readinessProbe:
             httpGet:
               path: /login
               port: 8080
-              scheme: HTTP
             failureThreshold: 5
             periodSeconds: 10
             successThreshold: 2
             timeoutSeconds: 5
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: docker_sock
+              mountPath: /var/run/docker.docker_sock
+      volumes:
+        - name: jenkins-home
+          gcePersistentDisk:
+            pdName: jenkins-home
+            fsType: ext4
+            partition: 1
+        - name: docker_sock
+          hostPath:
+            path: /var/run/docker.docker_sock
