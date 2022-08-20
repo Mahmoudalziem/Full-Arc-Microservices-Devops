@@ -107,9 +107,20 @@ spec:
       securityContext:
         fsGroup: 1001
       volumes:
-      - emptyDir: {}
+      - emptyDir:
+          medium: Memory
         name: dshm
-      - emptyDir: {}
-        name: data
   updateStrategy:
     type: RollingUpdate
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+      volumeMode: Filesystem
