@@ -116,15 +116,4 @@ spec:
   updateStrategy:
     type: RollingUpdate
   volumeClaimTemplates:
-    - apiVersion: v1
-      kind: PersistentVolumeClaim
-      metadata:
-        name: data
-      spec:
-        storageClassName: gp2
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        volumeMode: Filesystem
+    - claimName: data
