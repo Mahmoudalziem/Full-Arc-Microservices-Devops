@@ -1,37 +1,3 @@
-# apiVersion: apps/v1
-# kind: StatefulSet
-# metadata:
-#   namespace: jenkins
-#   labels:
-#     app: jenkins
-#   name: jenkins
-# spec:
-#   serviceName: jenkins
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: jenkins
-#   template:
-#     metadata:
-#       labels:
-#         app: jenkins
-#     spec:
-#       containers:
-#         - image: azima/jenkins-docker:latest
-#           name: jenkins
-#           ports:
-#             - containerPort: 8080
-#           readinessProbe:
-#             httpGet:
-#               path: /login
-#               port: 8080
-#               scheme: HTTP
-#             failureThreshold: 5
-#             periodSeconds: 10
-#             successThreshold: 2
-#             timeoutSeconds: 5
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -57,7 +23,7 @@ spec:
           resources:
             limits:
               cpu: 300m
-              memory: 1Gi
+              memory: 800Mi
           readinessProbe:
             httpGet:
               path: /login
@@ -67,16 +33,9 @@ spec:
             successThreshold: 2
             timeoutSeconds: 5
           volumeMounts:
-            - name: jenkins-home
-              mountPath: /var/jenkins_home
-            - name: docker_sock
-              mountPath: /var/run/docker.docker_sock
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
       volumes:
-        - name: jenkins-home
-          gcePersistentDisk:
-            pdName: jenkins-home
-            fsType: ext4
-            partition: 1
-        - name: docker_sock
+        - name: docker-sock
           hostPath:
-            path: /var/run/docker.docker_sock
+            path: /var/run/docker.sock
