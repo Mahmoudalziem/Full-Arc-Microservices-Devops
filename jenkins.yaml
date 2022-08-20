@@ -32,6 +32,10 @@ spec:
             periodSeconds: 10
             successThreshold: 2
             timeoutSeconds: 5
+          ports:
+            - name: jenkins
+              containerPort: 8080
+              protocol: TCP
           volumeMounts:
             - name: docker-sock
               mountPath: /var/run/docker.sock
