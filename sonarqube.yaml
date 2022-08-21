@@ -23,12 +23,6 @@ spec:
             - containerPort: 9000
               name: http
               protocol: TCP
-            - containerPort: 8000
-              name: monitoring-web
-              protocol: TCP
-            - containerPort: 8001
-              name: monitoring-ce
-              protocol: TCP
           envFrom:
             - configMapRef:
                 name: sonarqube-cm

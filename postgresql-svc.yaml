@@ -7,10 +7,10 @@ metadata:
   namespace: sonarqube
 spec:
   ports:
-  - name: tcp-postgresql
-    port: 5432
-    protocol: TCP
-    targetPort: tcp-postgresql
+    - name: tcp-postgresql
+      port: 5432
+      protocol: TCP
+      targetPort: tcp-postgresql
   selector:
     app: postgresql
   type: ClusterIP

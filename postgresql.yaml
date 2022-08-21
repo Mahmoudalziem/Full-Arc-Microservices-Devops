@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: postgresql
-  serviceName: sonarqube-postgresql-headless
+  serviceName: sonarqube-postgresql
   template:
     metadata:
       labels:
@@ -53,11 +53,6 @@ spec:
             - configMapRef:
                 name: sonar-config
           env:
-            - name: POSTGRES_POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: postgresql-password
-                  name: sonar-secret
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
