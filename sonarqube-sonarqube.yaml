@@ -22,10 +22,10 @@ spec:
     spec:
       containers:
         - env:
-            - name: SONAR_WEB_JAVAOPTS
-              value: -javaagent:/opt/sonarqube/data/jmx_prometheus_javaagent.jar=8000:/opt/sonarqube/conf/prometheus-config.yaml
-            - name: SONAR_CE_JAVAOPTS
-              value: -javaagent:/opt/sonarqube/data/jmx_prometheus_javaagent.jar=8001:/opt/sonarqube/conf/prometheus-ce-config.yaml
+            # - name: SONAR_WEB_JAVAOPTS
+            #   value: -javaagent:/opt/sonarqube/data/jmx_prometheus_javaagent.jar=8000:/opt/sonarqube/conf/prometheus-config.yaml
+            # - name: SONAR_CE_JAVAOPTS
+            #   value: -javaagent:/opt/sonarqube/data/jmx_prometheus_javaagent.jar=8001:/opt/sonarqube/conf/prometheus-ce-config.yaml
             - name: SONAR_JDBC_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -36,10 +36,7 @@ spec:
                 secretKeyRef:
                   key: SONAR_WEB_SYSTEMPASSCODE
                   name: sonarqube-postgresql
-          # envFrom:
-          #   - configMapRef:
-          #       name: sonarqube-sonarqube-jdbc-config
-          image: sonarqube:9.6.0-community
+          image: sonarqube:8.9-community
           livenessProbe:
             failureThreshold: 6
             httpGet:
@@ -109,35 +106,10 @@ spec:
             - mountPath: /opt/sonarqube/conf/prometheus-ce-config.yaml
               name: prometheus-ce-config
               subPath: prometheus-ce-config.yaml
-      initContainers:
-        - command:
-            - sh
-            - -e
-            - /tmp/scripts/init_sysctl.sh
-          image: busybox:1.32
-          name: init-sysctl
-          volumeMounts:
-            - mountPath: /tmp/scripts/
-              name: init-sysctl
-        - args:
-            - curl -s 'https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.16.0/jmx_prometheus_javaagent-0.16.0.jar'  --output
-              /data/jmx_prometheus_javaagent.jar -v
-          command:
-            - /bin/sh
-            - -c
-          env:
-            - name: http_proxy
-            - name: https_proxy
-            - name: no_proxy
-          image: curlimages/curl:7.76.1
-          name: inject-prometheus-exporter
-          volumeMounts:
-            - mountPath: /data
-              name: sonarqube
-              subPath: data
       restartPolicy: Always
       serviceAccount: default
       serviceAccountName: default
+      terminationGracePeriodSeconds: 30
       volumes:
         - configMap:
             name: sonarqube-sonarqube-init-sysctl
@@ -153,8 +125,9 @@ spec:
         - emptyDir: {}
           name: tmp-dir
   updateStrategy:
+    rollingUpdate:
+      partition: 0
     type: RollingUpdate
-
 ---
 kind: ConfigMap
 apiVersion: v1
