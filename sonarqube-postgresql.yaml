@@ -121,7 +121,7 @@ spec:
       metadata:
         name: data
       spec:
-        storageClassName: sonarqube
+        storageClassName: gp2
         accessModes:
           - ReadWriteOnce
         resources:
