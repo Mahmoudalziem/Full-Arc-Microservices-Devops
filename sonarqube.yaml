@@ -18,19 +18,6 @@ spec:
     spec:
       containers:
         - image: sonarqube:lts-community
-          livenessProbe:
-            failureThreshold: 6
-            httpGet:
-              httpHeaders:
-                - name: X-Sonar-Passcode
-                  value: define_it
-              path: /api/system/liveness
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 60
-            periodSeconds: 30
-            successThreshold: 1
-            timeoutSeconds: 1
           name: sonarqube
           ports:
             - containerPort: 9000
@@ -42,6 +29,23 @@ spec:
             - containerPort: 8001
               name: monitoring-ce
               protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "#!/bin/bash\n# A Sonarqube container is considered ready if the status
+                  is UP, DB_MIGRATION_NEEDED or DB_MIGRATION_RUNNING\n# status about migration
+                  are added to prevent the node to be kill while sonarqube is upgrading
+                  the database.\nhost=\"$(hostname -i || echo '127.0.0.1')\"\nif wget
+                  --proxy off -qO- http://${host}:9000/api/system/status | grep -q -e
+                  '\"status\":\"UP\"' -e '\"status\":\"DB_MIGRATION_NEEDED\"' -e '\"status\":\"DB_MIGRATION_RUNNING\"';
+                  then\n\texit 0\nfi\nexit 1\n"
+            failureThreshold: 6
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 1
           volumeMounts:
             - mountPath: /opt/sonarqube/data
               name: sonarqube
