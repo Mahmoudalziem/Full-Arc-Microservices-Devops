@@ -1,0 +1,21 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: sonar-config
+  namespace: sonarqube
+data:
+  BITNAMI_DEBUG: "false"
+  POSTGRESQL_PORT_NUMBER: "5432"
+  POSTGRESQL_VOLUME_DIR: /bitnami/postgresql
+  PGDATA: /bitnami/postgresql/data
+  POSTGRES_USER: sonar
+  POSTGRES_DB: sonarDB
+  POSTGRESQL_ENABLE_LDAP: "no"
+  POSTGRESQL_ENABLE_TLS: "no"
+  POSTGRESQL_LOG_HOSTNAME: "false"
+  POSTGRESQL_LOG_CONNECTIONS: "false"
+  POSTGRESQL_LOG_DISCONNECTIONS: "false"
+  POSTGRESQL_PGAUDIT_LOG_CATALOG: "off"
+  POSTGRESQL_CLIENT_MIN_MESSAGES: "error"
+  POSTGRESQL_SHARED_PRELOAD_LIBRARIES: "pgaudit"
+---

@@ -29,6 +29,15 @@ spec:
             - containerPort: 8001
               name: monitoring-ce
               protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: sonarqube-cm
+          env:
+            - name: sonar.jdbc.password
+              valueFrom:
+                secretKeyRef:
+                  key: postgresql-password
+                  name: sonar-secret
           readinessProbe:
             exec:
               command:
@@ -54,13 +63,13 @@ spec:
               subPath: temp
             - mountPath: /opt/sonarqube/logs
               name: sonarqube
-            - mountPath: /tmp
-              name: tmp-dir
+            - mountPath: /opt/sonarqube/extensions
+              name: sonarqube
       serviceAccount: default
       volumes:
         - emptyDir: {}
           name: sonarqube
         - emptyDir: {}
-          name: tmp-dir
+          name: tmp
   updateStrategy:
     type: RollingUpdate

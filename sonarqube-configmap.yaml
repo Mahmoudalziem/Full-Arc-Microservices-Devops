@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sonarqube-cm
+  labels:
+    app: sonarqube
+data:
+  sonar.jdbc.username: sonar
+  sonar.jdbc.password: sonar
+  sonar.jdbc.url: jdbc:postgresql://postgres/sonar
