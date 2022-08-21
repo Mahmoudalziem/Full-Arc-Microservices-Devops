@@ -17,7 +17,7 @@ spec:
         app: sonarqube
     spec:
       containers:
-        - image: sonarqube:8.9-community
+        - image: sonarqube:lts-community
           livenessProbe:
             failureThreshold: 6
             httpGet:
