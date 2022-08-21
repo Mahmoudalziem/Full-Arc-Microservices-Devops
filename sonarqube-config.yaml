@@ -7,4 +7,4 @@ metadata:
     app: sonarqube
 data:
   sonar.jdbc.username: sonar
-  sonar.jdbc.url: jdbc:postgresql://sonarqube-postgresql:5432/sonar
+  # sonar.jdbc.url: jdbc:postgresql://sonarqube-postgresql:5432/sonar
