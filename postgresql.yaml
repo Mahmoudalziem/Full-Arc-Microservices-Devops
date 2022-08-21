@@ -3,7 +3,6 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/instance: sonarqube
-    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: postgresql
   name: sonarqube-postgresql
   namespace: sonarqube
