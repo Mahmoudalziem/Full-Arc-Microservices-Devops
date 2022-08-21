@@ -1,18 +1,62 @@
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  finalizers:
-    - service.kubernetes.io/load-balancer-cleanup
   labels:
     app: sonarqube
   name: sonarqube-sonarqube
   namespace: sonarqube
 spec:
-  ports:
-    - name: http
-      port: 5000
-      protocol: TCP
-      targetPort: http
+  replicas: 1
   selector:
-    app: sonarqube
-  type: LoadBalancer
+    matchLabels:
+      app: sonarqube
+  serviceName: sonarqube-sonarqube
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+    spec:
+      containers:
+        - image: sonarqube:8.9-community
+          livenessProbe:
+            failureThreshold: 6
+            httpGet:
+              httpHeaders:
+                - name: X-Sonar-Passcode
+                  value: define_it
+              path: /api/system/liveness
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: sonarqube
+          ports:
+            - containerPort: 9000
+              name: http
+              protocol: TCP
+            - containerPort: 8000
+              name: monitoring-web
+              protocol: TCP
+            - containerPort: 8001
+              name: monitoring-ce
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /opt/sonarqube/data
+              name: sonarqube
+            - mountPath: /opt/sonarqube/temp
+              name: sonarqube
+              subPath: temp
+            - mountPath: /opt/sonarqube/logs
+              name: sonarqube
+            - mountPath: /tmp
+              name: tmp-dir
+      serviceAccount: default
+      volumes:
+        - emptyDir: {}
+          name: sonarqube
+        - emptyDir: {}
+          name: tmp-dir
+  updateStrategy:
+    type: RollingUpdate
