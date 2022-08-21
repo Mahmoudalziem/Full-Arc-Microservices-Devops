@@ -121,7 +121,7 @@ spec:
       metadata:
         name: data
       spec:
-        sotrageClassName: sonarqube
+        storageClassName: sonarqube
         accessModes:
           - ReadWriteOnce
         resources:
