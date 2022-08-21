@@ -15,7 +15,7 @@ spec:
     metadata:
       labels:
         app: postgresql
-      name: sonarqube-postgresql
+      name: postgresql
     spec:
       containers:
         - image: docker.io/bitnami/postgresql:11.14.0-debian-10-r22
@@ -30,7 +30,7 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 5
-          name: sonarqube-postgresql
+          name: postgresql
           ports:
             - containerPort: 5432
               name: tcp-postgresql
