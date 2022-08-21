@@ -105,17 +105,7 @@ spec:
         - emptyDir:
             medium: Memory
           name: dshm
+        - emptyDir: {}
+          name: data
   updateStrategy:
     type: RollingUpdate
-  volumeClaimTemplates:
-    - apiVersion: v1
-      kind: PersistentVolumeClaim
-      metadata:
-        name: data
-      spec:
-        volumeName: ""
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 2Gi
