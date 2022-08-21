@@ -25,7 +25,7 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: sonarqube-cm
+                name: sonarqube-config
           env:
             - name: sonar.jdbc.password
               valueFrom:
@@ -54,12 +54,12 @@ spec:
               name: sonarqube
             - mountPath: /opt/sonarqube/temp
               name: sonarqube
-              subPath: temp
             - mountPath: /opt/sonarqube/logs
               name: sonarqube
             - mountPath: /opt/sonarqube/extensions
               name: sonarqube
       serviceAccount: default
+      restartPolicy: Always
       volumes:
         - emptyDir: {}
           name: sonarqube

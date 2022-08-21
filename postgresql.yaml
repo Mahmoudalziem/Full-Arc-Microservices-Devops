@@ -24,7 +24,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - exec pg_isready -U "sonar" -d "dbname=sonarDB" -h 127.0.0.1 -p 5432
+                - exec pg_isready -U "sonar" -d "dbname=sonar" -h 127.0.0.1 -p 5432
             failureThreshold: 6
             initialDelaySeconds: 30
             periodSeconds: 10
@@ -42,7 +42,7 @@ spec:
                 - -c
                 - -e
                 - |
-                  exec pg_isready -U "sonar" -d "dbname=sonarDB" -h 127.0.0.1 -p 5432
+                  exec pg_isready -U "sonar" -d "dbname=sonar" -h 127.0.0.1 -p 5432
                   [ -f /opt/bitnami/postgresql/tmp/.initialized ] || [ -f /bitnami/postgresql/.initialized ]
             failureThreshold: 6
             initialDelaySeconds: 5
@@ -51,7 +51,7 @@ spec:
             timeoutSeconds: 5
           envFrom:
             - configMapRef:
-                name: sonar-config
+                name: postgresql-config
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -72,6 +72,4 @@ spec:
           name: data
   updateStrategy:
     type: RollingUpdate
-
----
 
