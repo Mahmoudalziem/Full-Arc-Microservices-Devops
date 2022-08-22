@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: external-dns
-  namespace: kube-system
 spec:
   strategy:
     type: Recreate
@@ -16,17 +15,17 @@ spec:
     spec:
       serviceAccountName: external-dns
       containers:
-        - name: external-dns
-          image: k8s.gcr.io/external-dns/external-dns:v0.10.2
-          resources: {}
-          args:
-            - --source=service
-            - --source=ingress
-            - --domain-filter=azima.webiste
-            - --provider=aws
-            - --policy=upsert-only
-            - --aws-zone-type=public
-            - --registry=txt
-            - --txt-owner-id=Z06499312HTX15ZIFRFF9
+      - name: external-dns
+        image: k8s.gcr.io/external-dns/external-dns:v0.10.2
+        resources: {}
+        args:
+        - --source=service
+        - --source=ingress
+        - --domain-filter=azima.website
+        - --provider=aws
+        - --policy=upsert-only
+        - --aws-zone-type=public
+        - --registry=txt
+        - --txt-owner-id=Z06499312HTX15ZIFRFF9
       securityContext:
         fsGroup: 65534
