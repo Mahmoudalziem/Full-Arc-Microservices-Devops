@@ -1,0 +1,6 @@
+---
+- name: Install Nginx-Ingress
+  remote_user: root
+  hosts: elk
+  roles:
+    - roles/ingress-controller

@@ -1,6 +1,7 @@
 ---
 - name: Jenknis Package
   remote_user: root
+  gather_facts: false
   hosts: elk
   roles:
     - roles/jenkins

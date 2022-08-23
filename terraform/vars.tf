@@ -79,3 +79,8 @@ variable "BASTION_AMI" {
 
   type = string
 }
+
+variable "DOMAIN_NAME" {
+
+  type = string
+}

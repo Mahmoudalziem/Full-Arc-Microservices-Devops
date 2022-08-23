@@ -1,6 +1,7 @@
 ---
 - name: install kubernates
   remote_user: root
+  gather_facts: no
   hosts: elk
   roles:
     - roles/k8s

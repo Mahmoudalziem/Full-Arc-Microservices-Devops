@@ -23,6 +23,12 @@
     src: "{{ item }}"
   loop: "{{ jenkins_files|json_query('files[].path') }}"
 
+#### Pause for 2 minutes => (CI/CD)
+
+- name: Pause for 2 minutes
+  pause:
+    minutes: 1
+
 #### Check Jenkins Accessability
 
 - name: Check Jenkins Accessability
@@ -39,10 +45,10 @@
   register: jenkins
   when: wait_for_ext_ip.rc == 0
   notify: print-dashboard
-
+  
 #### Get Jenkins Password Dashboard
 
 - name: Get Jenkins Password Dashboard
-  command: "{{ JENKINS_PASSWORD }}"
+  shell: "{{ JENKINS_PASSWORD }}"
   register: password
   notify: print-password

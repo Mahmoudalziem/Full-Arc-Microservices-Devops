@@ -1,8 +1,3 @@
-output "ELASTIC_IP" {
-
-  value = aws_eip.eip.allocation_id
-}
-
 output "VPC_ID" {
 
   value = aws_vpc.main.id

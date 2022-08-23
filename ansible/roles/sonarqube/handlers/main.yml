@@ -1,0 +1,9 @@
+---
+
+#### Print SonarQube Accessability Dashboard
+
+- name: print-dashboard
+  debug:
+    msg: 
+      - "SonarQube Dashboard => {{ sonarqube.stdout }}"
+      - " Port => 5000"

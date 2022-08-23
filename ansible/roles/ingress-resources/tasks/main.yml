@@ -1,0 +1,14 @@
+---
+#### Retrive Ingress Resources Yaml File
+
+- debug:
+    vars:
+      ingress: "{{ lookup('file','/') }}"
+
+#### Install Jenkins => (CI/CD)
+
+- name: Install Ingress Resources
+  k8s:
+    src: "{{ ingress }}"
+  # loop: "{{ jenkins_files|json_query('files[].path') }}"
+  notify: success

@@ -2,13 +2,7 @@
 BRANCH: jenkins
 DIRECTORY: jenkins
 GITHUB_REPO: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
-JENKINS_ACCESS: kubectl get svc jenkins -n jenkins --output jsonpath='{.status.loadBalancer.ingress[0]}'
-JENKINS_ACCESS_HOSTNAME: kubectl get svc jenkins -n jenkins --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'
-JENKINS_PASSWORD: kubectl exec  jenkins-0 -n jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
-
-# DOCKER_IMAGE: azima/jenkins-docker
-# HOST_VOLUME: /root/jenknis
-# CONTAINER_VOLUME: /var/jenknin_home
-# MOUNT_DOCKER: /var/run/docker.sock
-# HOST_PORT: 8080
-# CONTAINER_PORT: 8080
+JENKINS_ACCESS: kubectl get svc jenkins -n jenkins -o jsonpath='{.status.loadBalancer.ingress[0]}'
+JENKINS_ACCESS_HOSTNAME: kubectl get svc jenkins -n jenkins -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+POD_NAME:  kubectl get pods -l app=jenkins -n jenkins -o name | cut -d / -f2
+JENKINS_PASSWORD: kubectl exec $({{ POD_NAME }}) -n jenkins cat /var/jenkins_home/secrets/initialAdminPassword 

@@ -15,7 +15,7 @@
   kubernetes.core.helm:
     name:  "{{ item.NAME }}"
     chart_ref: "{{ item.REF }}"
-    release_namespace: default
+    release_namespace: elk
   loop:
     - NAME: filebeat
       REF: elk/filebeat

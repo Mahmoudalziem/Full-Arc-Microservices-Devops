@@ -1,0 +1,5 @@
+---
+
+- name: success
+  debug:
+    msg: "Success Install Nginx Ingress Controller"

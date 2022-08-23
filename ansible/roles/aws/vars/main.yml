@@ -2,6 +2,6 @@
 FORMAT: json
 CLUSTER_NAME: elk
 REGION: us-east-2
-SYSTEM_USER: azima
+SYSTEM_USER: eks
 ACCESS_KEY: "{{ lookup('env', 'ACCESS_KEY')}}"
 SECRET_ACCESS_KEY: "{{ lookup('env', 'SECRET_ACCESS_KEY')}}"

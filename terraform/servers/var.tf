@@ -62,8 +62,24 @@ variable "BASTION_AMI" {
   type = string
 }
 
+variable "DOMAIN_NAME" {
+
+  type = string
+}
+
 variable "eks_addon_version_core_dns" {
   type        = string
-  description = "Core DNS managed EKS addon version."
-  default     = "v1.8.7-eksbuild.2"
+  default     = "v1.8.7-eksbuild.1"
+}
+
+variable "eks_addon_version_csi_driver" {
+  type        = string
+  default     = "v1.10.0-eksbuild.1"
+}
+
+variable "CLIENT_ID"{
+
+  type = string
+
+  default = "sts.amazonaws.com"
 }

@@ -1,0 +1,7 @@
+---
+REPO_URL: https://SonarSource.github.io/helm-chart-sonarqube
+BRANCH: sonarqube
+DIRECTORY: sonarqube
+GITHUB_REPO: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git
+SONARQUBE_ACCESS: kubectl get svc sonarqube-sonarqube -n sonarqube --output jsonpath='{.status.loadBalancer.ingress[0]}'
+SONARQUBE_ACCESS_HOSTNAME: kubectl get svc sonarqube-sonarqube -n sonarqube --output jsonpath='{.status.loadBalancer.ingress[0].hostname}'

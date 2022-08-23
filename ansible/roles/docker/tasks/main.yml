@@ -21,4 +21,4 @@
     name: docker-ce
     state: latest
     update_cache: True
-  notify: docker-successs
+  notify: docker-success

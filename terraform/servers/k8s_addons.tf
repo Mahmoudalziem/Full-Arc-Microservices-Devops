@@ -24,6 +24,25 @@ resource "aws_eks_addon" "core-dns" {
     }
 }
 
+resource "aws_eks_addon" "csi-driver" {
+
+  cluster_name      = aws_eks_cluster.cluster.name
+
+  addon_name        = "aws-ebs-csi-driver"
+
+  addon_version     = var.eks_addon_version_csi_driver
+
+  resolve_conflicts = "OVERWRITE"
+
+  depends_on = [
+    aws_eks_node_group.nodes
+  ]
+
+  tags = {
+      "eks_addon" = "aws-ebs-csi-driver"
+    }
+}
+
 resource "aws_eks_addon" "kube-proxy" {
 
   cluster_name = aws_eks_cluster.cluster.name
