@@ -24,19 +24,19 @@
     src: "{{ item }}"
   loop: "{{ prometheus_files.files | sort(attribute='path')|reverse|json_query('[].path') }}"
   
-#### Check Grafana Accessability
+# #### Check Grafana Accessability
 
-- name: Check Grafana Accessability
-  shell: if [ $({{ GRAFANA_ACCESS }}) ]; then exit 0; else exit 1; fi;
-  register: wait_for_ext_ip
-  until: wait_for_ext_ip.rc == 0
-  retries: 10
-  delay: 5
+# - name: Check Grafana Accessability
+#   shell: if [ $({{ GRAFANA_ACCESS }}) ]; then exit 0; else exit 1; fi;
+#   register: wait_for_ext_ip
+#   until: wait_for_ext_ip.rc == 0
+#   retries: 10
+#   delay: 5
 
-#### Get Jenkins Accessability Dashboard
+# #### Get Jenkins Accessability Dashboard
 
-- name: Get Jenkins Accessability Dashboard
-  command: "{{ GRAFANA_ACCESS_HOSTNAME }}"
-  register: grafana
-  when: wait_for_ext_ip.rc == 0
-  notify: print-dashboard
+# - name: Get Jenkins Accessability Dashboard
+#   command: "{{ GRAFANA_ACCESS_HOSTNAME }}"
+#   register: grafana
+#   when: wait_for_ext_ip.rc == 0
+#   notify: print-dashboard

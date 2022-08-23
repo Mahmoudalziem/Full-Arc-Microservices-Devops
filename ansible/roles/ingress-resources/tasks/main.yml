@@ -1,14 +1,25 @@
 ---
+
+#### Pull Ingress Resources Github Repo
+
+- name: Pull Ingress Resources
+  git:
+    repo: "{{ GITHUB_REPO }}"
+    dest: "{{ DIRECTORY }}"
+    version: "{{ BRANCH }}"
+    clone: yes
+
 #### Retrive Ingress Resources Yaml File
 
-- debug:
-    vars:
-      ingress: "{{ lookup('file','/') }}"
+- find:
+    paths: "{{ DIRECTORY }}"
+    patterns: "*.yaml"
+  register: resources_files
 
-#### Install Jenkins => (CI/CD)
+#### Install Ingress Resources
 
 - name: Install Ingress Resources
   k8s:
-    src: "{{ ingress }}"
-  # loop: "{{ jenkins_files|json_query('files[].path') }}"
-  notify: success
+    src: "{{ item }}"
+  loop: "{{ resources_files|json_query('files[].path') }}"
+

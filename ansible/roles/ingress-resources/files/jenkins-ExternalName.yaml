@@ -1,9 +1,0 @@
-## PORT => 8080
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: jenkins-jenkins
-spec:
-  externalName: jenkins.jenkins.svc.cluster.local
-  type: ExternalName

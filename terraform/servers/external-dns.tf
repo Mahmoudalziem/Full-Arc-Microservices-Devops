@@ -6,7 +6,9 @@ resource "aws_iam_openid_connect_provider" "eks_identity_provider" {
     var.CLIENT_ID
   ]
 
-  thumbprint_list = []
+  thumbprint_list = [
+    var.OIDC_THEMPRINT
+  ]
 
   tags = {
     Name = "${var.PROJECT_NAME}"

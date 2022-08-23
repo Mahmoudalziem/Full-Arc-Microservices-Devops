@@ -16,6 +16,7 @@
     name:  "{{ item.NAME }}"
     chart_ref: "{{ item.REF }}"
     release_namespace: elk
+    create_namespace: true
   loop:
     - NAME: filebeat
       REF: elk/filebeat
@@ -26,19 +27,19 @@
     - NAME: kibana
       REF: elk/kibana
 
-#### Check Kibana Accessability
+# #### Check Kibana Accessability
 
-- name: Check Kibana Accessability
-  shell: if [ $({{ KIBANA_ACCESS }}) ]; then exit 0; else exit 1; fi;
-  register: wait_for_ext_ip
-  until: wait_for_ext_ip.rc == 0
-  retries: 10
-  delay: 5
+# - name: Check Kibana Accessability
+#   shell: if [ $({{ KIBANA_ACCESS }}) ]; then exit 0; else exit 1; fi;
+#   register: wait_for_ext_ip
+#   until: wait_for_ext_ip.rc == 0
+#   retries: 10
+#   delay: 5
 
-#### Get Kibana Accessability Dashboard
+# #### Get Kibana Accessability Dashboard
 
-- name: Get Kibana Accessability Dashboard
-  command: "{{ KIBANA_ACCESS_HOSTNAME }}"
-  register: kibana
-  when: wait_for_ext_ip.rc == 0
-  notify: print-dashboard
+# - name: Get Kibana Accessability Dashboard
+#   command: "{{ KIBANA_ACCESS_HOSTNAME }}"
+#   register: kibana
+#   when: wait_for_ext_ip.rc == 0
+#   notify: print-dashboard

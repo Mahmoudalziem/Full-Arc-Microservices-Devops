@@ -1,9 +1,0 @@
-## PORT => 9000
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: prometheus-prometheus
-spec:
-  externalName: grafana.monitoring.svc.cluster.local
-  type: ExternalName

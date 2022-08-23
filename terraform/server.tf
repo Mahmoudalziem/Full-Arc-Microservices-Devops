@@ -16,10 +16,12 @@ module "server" {
   DOMAIN_NAME      = var.DOMAIN_NAME
 }
 
-# data "aws_eks_cluster" "cluster" {
-#   name = module.server.cluster_id
-# }
+data "aws_eks_cluster" "cluster" {
 
-# data "aws_eks_cluster_auth" "cluster" {
-#   name = module.server.cluster_id
-# }
+  name = module.server.CLUSTER_ID
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+
+  name = module.server.CLUSTER_ID
+}

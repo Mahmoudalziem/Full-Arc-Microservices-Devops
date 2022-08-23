@@ -84,3 +84,13 @@ variable "DOMAIN_NAME" {
 
   type = string
 }
+
+variable "EXTERNAL_IMAGE" {
+
+  type = string
+}
+
+variable "EXTERNAL_NAME" {
+
+  type = string
+}

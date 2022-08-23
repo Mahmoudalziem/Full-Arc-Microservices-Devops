@@ -23,28 +23,28 @@
     src: "{{ item }}"
   loop: "{{ jenkins_files|json_query('files[].path') }}"
 
-#### Pause for 2 minutes => (CI/CD)
+#### Pause for 1 minutes => (CI/CD)
 
-- name: Pause for 2 minutes
+- name: Pause for 1 minutes
   pause:
     minutes: 1
 
-#### Check Jenkins Accessability
+# #### Check Jenkins Accessability
 
-- name: Check Jenkins Accessability
-  shell: if [ $({{ JENKINS_ACCESS }}) ]; then exit 0; else exit 1; fi;
-  register: wait_for_ext_ip
-  until: wait_for_ext_ip.rc == 0
-  retries: 10
-  delay: 5
+# - name: Check Jenkins Accessability
+#   shell: if [ $({{ JENKINS_ACCESS }}) ]; then exit 0; else exit 1; fi;
+#   register: wait_for_ext_ip
+#   until: wait_for_ext_ip.rc == 0
+#   retries: 10
+#   delay: 5
 
-#### Get Jenkins Accessability Dashboard
+# #### Get Jenkins Accessability Dashboard
 
-- name: Get Jenkins Accessability Dashboard
-  command: "{{ JENKINS_ACCESS_HOSTNAME }}"
-  register: jenkins
-  when: wait_for_ext_ip.rc == 0
-  notify: print-dashboard
+# - name: Get Jenkins Accessability Dashboard
+#   command: "{{ JENKINS_ACCESS_HOSTNAME }}"
+#   register: jenkins
+#   when: wait_for_ext_ip.rc == 0
+#   notify: print-dashboard
   
 #### Get Jenkins Password Dashboard
 

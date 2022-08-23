@@ -7,8 +7,3 @@ output "NAMESERVERS" {
 
   value = module.server.NAMESERVERS
 }
-
-output "EXTERNAL_DNS-ROLE" {
-
-  value = module.server.EXTERNAL_DNS-ROLE
-}

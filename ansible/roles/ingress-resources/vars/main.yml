@@ -1,2 +1,4 @@
 ---
-# vars file for ingress-controller
+BRANCH: ingress
+DIRECTORY: ingress
+GITHUB_REPO: https://github.com/Mahmoudalziem/Full-Arc-Microservices-Devops.git

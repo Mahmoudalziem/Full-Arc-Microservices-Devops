@@ -24,20 +24,20 @@
     src: "{{ item }}"
   loop: "{{ sonarqube_files.files | sort(attribute='path')|json_query('[].path') }}"
   
-#### Check SonarQube Accessability
+# #### Check SonarQube Accessability
 
-- name: Check SonarQube Accessability
-  shell: if [ $({{ SONARQUBE_ACCESS }}) ]; then exit 0; else exit 1; fi;
-  register: wait_for_ext_ip
-  until: wait_for_ext_ip.rc == 0
-  retries: 10
-  delay: 5
+# - name: Check SonarQube Accessability
+#   shell: if [ $({{ SONARQUBE_ACCESS }}) ]; then exit 0; else exit 1; fi;
+#   register: wait_for_ext_ip
+#   until: wait_for_ext_ip.rc == 0
+#   retries: 10
+#   delay: 5
 
-#### Get SonarQube Accessability Dashboard
+# #### Get SonarQube Accessability Dashboard
 
-- name: Get SonarQube Accessability Dashboard
-  command: "{{ SONARQUBE_ACCESS_HOSTNAME }}"
-  register: sonarqube
-  when: wait_for_ext_ip.rc == 0
-  notify: print-dashboard
+# - name: Get SonarQube Accessability Dashboard
+#   command: "{{ SONARQUBE_ACCESS_HOSTNAME }}"
+#   register: sonarqube
+#   when: wait_for_ext_ip.rc == 0
+#   notify: print-dashboard
 
