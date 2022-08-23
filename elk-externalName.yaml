@@ -1,0 +1,10 @@
+## PORT => 3000
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-kibana
+  namespace: default
+spec:
+  externalName: kibana-kibana.elk.svc.cluster.local
+  type: ExternalName
