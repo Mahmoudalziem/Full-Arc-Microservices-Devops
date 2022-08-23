@@ -21,10 +21,7 @@ spec:
       containers:
         - name: jenkins
           image: azima/jenkins-docker:latest
-          resources:
-            limits:
-              cpu: 300m
-              memory: 800Mi
+          resources: {}
           readinessProbe:
             httpGet:
               path: /login
