@@ -6,6 +6,7 @@ metadata:
   labels:
     app: jenkins
 spec:
+  serviceName: "jenkins"
   selector:
     matchLabels:
       app: jenkins
