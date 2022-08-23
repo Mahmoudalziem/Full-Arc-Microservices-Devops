@@ -4,7 +4,7 @@ metadata:
   namespace: jenkins
   name: jenkins
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: jenkins
   ports:
