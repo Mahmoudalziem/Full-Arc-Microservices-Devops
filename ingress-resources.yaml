@@ -7,9 +7,11 @@ metadata:
     author: "Mahmoud Abd Alziem"
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    app: ingress-microservices
 spec:
   rules:
-    - host: elk.azima.com
+    - host: elk.azima.website
       http:
         paths:
           - path: /
@@ -20,7 +22,7 @@ spec:
                 port:
                   number: 3000
 
-    - host: prometheus.azima.com
+    - host: prometheus.azima.website
       http:
         paths:
           - path: /
@@ -30,7 +32,7 @@ spec:
                 name: prometheus-prometheus
                 port:
                   number: 9000
-    - host: jenkins.azima.com
+    - host: jenkins.azima.website
       http:
         paths:
           - path: /
@@ -40,7 +42,7 @@ spec:
                 name: jenkins-jenkins
                 port:
                   number: 8080
-    - host: sonarqube.azima.com
+    - host: sonarqube.azima.website
       http:
         paths:
           - path: /
