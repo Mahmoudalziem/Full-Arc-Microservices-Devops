@@ -22,9 +22,3 @@ output "KAFKA_ENDPOINTS" {
 
   value = module.microservice.KAFKA_ENDPOINTS
 }
-
-output "BASTION_EIP" {
-
-  value = module.network.BASTION_EIP
-
-}

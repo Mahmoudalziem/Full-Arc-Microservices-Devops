@@ -4,7 +4,7 @@ resource "aws_instance" "bastion" {
 
   key_name = var.KEY_NAME
 
-  security_groups = ["${var.SECURITY_GROUP}"]
+  vpc_security_group_ids = ["${var.SECURITY_GROUP}"]
 
   subnet_id = var.SUBNET_PUBLIC_1
 
@@ -13,4 +13,13 @@ resource "aws_instance" "bastion" {
   tags = {
     Name = "${var.PROJECT_NAME}-bastion"
   }
+}
+
+
+resource "aws_eip_association" "bastion_assoc_eip" {
+
+  instance_id   = aws_instance.bastion.id
+
+  allocation_id = var.BASTION_ELASTIC_IP
+
 }

@@ -29,9 +29,3 @@ output "SECURITY_GROUP" {
   value = aws_security_group.security_group.id
 
 }
-
-output "BASTION_EIP" {
-
-  value = aws_eip.eip_bastion.id
-
-}

@@ -29,8 +29,6 @@ variable "SUBNET_PUBLIC_2" {
   type = string
 }
 
-
-
 variable "SUBNET_PRIVATE_1" {
 
   type = string
@@ -89,4 +87,9 @@ variable "OIDC_THEMPRINT" {
   type        = string
 
   default     = "9e99a48a9960b14926bb7f3b02e22da2b0ab7280"
+}
+
+variable "BASTION_ELASTIC_IP" {
+  
+  type = string
 }
