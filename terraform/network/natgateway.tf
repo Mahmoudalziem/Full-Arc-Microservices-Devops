@@ -7,4 +7,4 @@ resource "aws_nat_gateway" "nat_gateway" {
   tags = {
     Name = "${var.PROJECT_NAME}"
   }
-}
+}   

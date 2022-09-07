@@ -1,7 +1,7 @@
-# output "BASTION_IP" {
+output "BASTION_IP" {
 
-#   value = aws_instance.bastion.public_ip
-# }
+  value = aws_instance.bastion.public_ip
+}
 
 output "NAMESERVERS" {
 
