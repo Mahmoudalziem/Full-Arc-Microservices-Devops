@@ -4,3 +4,9 @@ resource "aws_eip" "eip" {
     Name = "${var.PROJECT_NAME}"
   }
 }
+resource "aws_eip" "eip_bastion" {
+
+  tags = {
+    Name = "bastion-${var.PROJECT_NAME}"
+  }
+}

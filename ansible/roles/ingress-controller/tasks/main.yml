@@ -12,7 +12,7 @@
 - name: Install Nginx-Ingress => (Ingress controller)
   kubernetes.core.helm:
     name: "{{ NAME }}"
-    chart_ref: "ingress-nginx/ingress-nginx"
+    chart_ref: "nginx-ingress/ingress-nginx"
     release_namespace: "{{ NAMESPACE }}"
     create_namespace: true
   notify: success

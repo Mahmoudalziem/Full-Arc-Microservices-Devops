@@ -1,11 +1,11 @@
 output "RDS_ENDPOINT" {
 
-  value = aws_rds_cluster.rds.endpoint
+  value = aws_db_instance.rds.endpoint
 }
 
 output "ELASTICCACHE_ENDPOINT" {
 
-  value = aws_elasticache_cluster.elasticcache.configuration_endpoint
+  value = aws_elasticache_replication_group.elasticcache.primary_endpoint_address
 }
 
 output "KAFKA_ENDPOINTS" {

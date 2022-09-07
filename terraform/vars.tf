@@ -150,6 +150,11 @@ variable "RDS_ENGINE" {
   type = string
 }
 
+variable "RDS_ENGINE_VERSION" {
+
+  type = string
+}
+
 variable "RDS_INSTANCE_CLASS" {
 
   type = string
