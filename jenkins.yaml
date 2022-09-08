@@ -17,10 +17,7 @@ spec:
       labels:
         app: jenkins
     spec:
-      securityContext:
-        fsGroup: 1000
-        runAsUser: 1000
-      serviceAccountName: jenkins
+      serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
           image: azima/jenkins-docker:latest
@@ -55,4 +52,5 @@ spec:
           hostPath:
             path: /var/run/docker.sock
         - name: jenkins-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: jenkins-storage
