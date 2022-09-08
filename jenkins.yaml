@@ -6,7 +6,6 @@ metadata:
   labels:
     app: jenkins
 spec:
-  serviceName: "jenkins"
   selector:
     matchLabels:
       app: jenkins
@@ -18,18 +17,30 @@ spec:
       labels:
         app: jenkins
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      serviceAccountName: jenkins
       containers:
         - name: jenkins
           image: azima/jenkins-docker:latest
           resources: {}
+          livenessProbe:
+            httpGet:
+              path: "/login"
+              port: 8080
+            initialDelaySeconds: 90
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
           readinessProbe:
             httpGet:
-              path: /login
+              path: "/login"
               port: 8080
-            failureThreshold: 5
+            initialDelaySeconds: 60
             periodSeconds: 10
-            successThreshold: 2
             timeoutSeconds: 5
+            failureThreshold: 3
           ports:
             - name: jenkins
               containerPort: 8080
@@ -37,12 +48,11 @@ spec:
           volumeMounts:
             - name: docker-sock
               mountPath: /var/run/docker.sock
-            - name: jenkins-home
+            - name: jenkins-data
               mountPath: /var/jenkins_home
       volumes:
         - name: docker-sock
           hostPath:
             path: /var/run/docker.sock
-        - name: jenkins-home
-          hostpath:
-            path: jenkins_home
+        - name: jenkins-data
+          emptyDir: {}
