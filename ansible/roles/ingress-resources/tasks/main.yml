@@ -14,6 +14,7 @@
 - find:
     paths: "{{ DIRECTORY }}"
     patterns: "*.yaml"
+    recurse: True
   register: resources_files
 
 #### Install Ingress Resources

@@ -1,5 +1,12 @@
 ---
 
+#### Make JENKINS Mounting Volume
+
+- name: Create Directory jenkins_home
+  file:
+    path: jenkins_home
+    state: directory
+
 #### Pull JENKINS (CI/CD) Github Repo
 
 - name: Pull Jenkins Github

@@ -1,4 +1,6 @@
 ---
+## => Main File Collect All Ansible Roles
+
 - import_playbook: plays/packages.yml
 - import_playbook: plays/k8s.yml
 - import_playbook: plays/aws.yml
@@ -8,7 +10,4 @@
 - import_playbook: plays/jenkins.yml
 - import_playbook: plays/sonarqube.yml
 - import_playbook: plays/prometheus.yml
-- import_playbook: plays/microservices.yml
 - import_playbook: plays/resources.yml
-
-##TodtdjJ788lMjQqeASeM
