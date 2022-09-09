@@ -55,10 +55,31 @@ spec:
     - host: azima.com
       http:
         paths:
-          - path: /
+          - path: /user
             pathType: Prefix
             backend:
               service:
-                name: microservices
+                name: users
                 port:
-                  number: 80
+                  number: 3003
+    - host: azima.com
+      http:
+        paths:
+          - path: /product
+            pathType: Prefix
+            backend:
+              service:
+                name: products
+                port:
+                  number: 3002
+
+    - host: azima.com
+      http:
+        paths:
+          - path: /order
+            pathType: Prefix
+            backend:
+              service:
+                name: orders
+                port:
+                  number: 3001

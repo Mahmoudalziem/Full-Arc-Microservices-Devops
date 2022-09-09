@@ -1,0 +1,10 @@
+## PORT => 3003
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: users
+  namespace: default
+spec:
+  externalName: users.microservice.svc.cluster.local
+  type: ExternalName
