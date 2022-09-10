@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-storage
+  namespace: jenkins
+  labels:
+    app: jenkins-storage
+spec:
+  storageClassName: gp2
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+
