@@ -17,7 +17,6 @@ spec:
       labels:
         app: jenkins
     spec:
-      serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
           image: azima/jenkins-docker:latest

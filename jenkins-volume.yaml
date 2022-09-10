@@ -1,15 +1,29 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-pv
+  labels:
+    type: local
+  namespace: jenkins
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: gp2
+  hostPath:
+    path: /var
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: jenkins-storage
   namespace: jenkins
-  labels:
-    app: jenkins-storage
 spec:
-  storageClassName: gp2
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteMany
+  storageClassName: gp2
   resources:
     requests:
-      storage: 3Gi
-
+      storage: 1Gi
