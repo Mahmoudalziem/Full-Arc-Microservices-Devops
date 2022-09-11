@@ -17,9 +17,6 @@ spec:
       labels:
         app: jenkins
     spec:
-      securityContext:
-          fsGroup: 1000 
-          runAsUser: 1000
       # serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
