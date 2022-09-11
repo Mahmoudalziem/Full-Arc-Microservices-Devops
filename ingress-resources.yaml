@@ -45,7 +45,7 @@ spec:
               service:
                 name: jenkins-jenkins
                 port:
-                  number: 80
+                  number: 8080
     - host: sonarqube.azima.website
       http:
         paths:
