@@ -45,6 +45,9 @@ spec:
             - name: jenkins
               containerPort: 8080
               protocol: TCP
+            - name: agents
+              containerPort: 9000
+              protocol: TCP
           volumeMounts:
             - name: docker-sock
               mountPath: /var/run/docker.sock

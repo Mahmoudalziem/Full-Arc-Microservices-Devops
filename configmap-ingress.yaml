@@ -4,4 +4,4 @@ metadata:
   name: tcp-services
   namespace: nginx-ingress
 data:
-  8080: "jenkins/jenkins:8080"
+  9000: "jenkins/jenkins:9000"

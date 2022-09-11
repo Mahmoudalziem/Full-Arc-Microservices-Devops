@@ -8,6 +8,11 @@ spec:
   selector:
     app: jenkins
   ports:
-    - protocol: TCP
+    - name: ui
+      protocol: TCP
       port: 8080
-      targetPort: 8080
+      targetPort: jenkins
+    - name: agents
+      protocol: TCP
+      port: 9000
+      targetPort: agents
