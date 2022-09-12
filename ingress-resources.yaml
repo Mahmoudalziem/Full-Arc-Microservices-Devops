@@ -56,31 +56,30 @@ spec:
                 name: sonarqube-sonarqube
                 port:
                   number: 5000
-    - host: azima.com
+    - host: user.azima.website
       http:
         paths:
-          - path: /user
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: users
                 port:
                   number: 3003
-    - host: azima.com
+    - host: product.azima.website
       http:
         paths:
-          - path: /product
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: products
                 port:
                   number: 3002
-
-    - host: azima.com
+    - host: order.azima.website
       http:
         paths:
-          - path: /order
+          - path: /
             pathType: Prefix
             backend:
               service:
