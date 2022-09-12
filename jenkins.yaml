@@ -17,7 +17,7 @@ spec:
       labels:
         app: jenkins
     spec:
-      # serviceAccountName: jenkins-admin
+      serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
           image: azima/jenkins-docker:latest
@@ -38,9 +38,6 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
-          # env:
-            # - name:  JENKINS_OPTS
-            #   value:  --handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war
           ports:
             - name: jenkins
               containerPort: 8080
