@@ -1,0 +1,16 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: config-data
+  namespace: microservice
+data:
+  NODE_ENV: development
+  DB_HOST: shopping.cy2ccq4ewkl3.us-east-2.rds.amazonaws.com
+  DB_USER: admin
+  DB_NAME: shopping
+  REDIS_PORT: "6379"
+  REDIS_HOST: shopping.5vg0uf.ng.0001.use2.cache.amazonaws.com
+  KAFKA_ID: shopping
+  KAFKA_BROKERS: b-1.shopping.5mbhz8.c6.kafka.us-east-2.amazonaws.com:9094,b-2.shopping.5mbhz8.c6.kafka.us-east-2.amazonaws.com:9094
+  KAFKA_SSL_STATUS: "1"
+  TOKEN_KEY: azima

@@ -1,0 +1,7 @@
+---
+#### Print Success Install Docker
+
+- name: k8s-success
+  debug:
+    msg: "Success Install K8s Shopping ARC"
+  

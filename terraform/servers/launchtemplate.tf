@@ -7,7 +7,7 @@ resource "aws_launch_template" "launch_template" {
     device_name = "/dev/xvda"
 
     ebs {
-      volume_size = 10
+      volume_size = 20
 
       volume_type = "gp2"
     }

@@ -1,0 +1,8 @@
+### Install Application ARC
+
+- name: Install Shopping K8s Files
+  k8s:
+    resource_definition: "{{ lookup('file',item) | from_yaml }}"
+  with_fileglob:
+    - "*"
+  notify: k8s-success

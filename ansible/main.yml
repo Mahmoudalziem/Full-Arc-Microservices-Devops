@@ -10,4 +10,5 @@
 - import_playbook: plays/jenkins.yml
 - import_playbook: plays/sonarqube.yml
 - import_playbook: plays/prometheus.yml
+- import_playbook: plays/microservices.yml
 - import_playbook: plays/resources.yml

@@ -1,6 +1,7 @@
 ---
-- name: install Application
+- name: install Application ARC
   remote_user: root
+  gather_facts: false
   hosts: elk
   roles:
-    - roles/microservices
+    - roles/application
